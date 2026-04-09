@@ -1,9 +1,12 @@
-# Dotfiles Repository Guide
+# Dotfiles Repo
+
+
+## Usage Guide
 
 This repo is the top-level controller for your shell/editor/terminal config.
 It is intentionally small and uses submodules for each config domain.
 
-## Repository Layout
+### Repository Layout
 
 - `dotfiles` (this repo): meta repo that pins versions of child config repos.
 - `nvim/`: Neovim config repo (`git@github.com:stirlingwdonaldson/nvim.git`).
@@ -12,7 +15,7 @@ It is intentionally small and uses submodules for each config domain.
 
 Each child directory is a git submodule, not a normal folder.
 
-## Core Conventions
+### Core Conventions
 
 1. Keep each tool's config in its own repo (`nvim`, `tmux`, `zsh`).
 2. Use this parent repo only to pin submodule commits and document setup.
@@ -20,7 +23,7 @@ Each child directory is a git submodule, not a normal folder.
 4. Install plugins at setup/runtime using each plugin manager.
 5. Keep `main` as the default branch in parent and child repos.
 
-## First-Time Setup (New Machine)
+### First-Time Setup (New Machine)
 
 ```bash
 git clone --recurse-submodules git@github.com:stirlingwdonaldson/dotfiles.git ~/dotfiles
@@ -28,7 +31,7 @@ cd ~/dotfiles
 git submodule update --init --recursive
 ```
 
-## Link Config Files
+### Link Config Files
 
 This repo stores config in subfolders; your tools read config from home paths.
 Use symlinks:
@@ -47,7 +50,7 @@ mkdir -p ~/.config/nvim
 ln -sfn ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ```
 
-## tmux Plugins (TPM)
+### tmux Plugins (TPM)
 
 `tmux/plugins/*` is intentionally not tracked in git.
 
@@ -64,9 +67,9 @@ test -d ~/.tmux/plugins/tpm || git clone https://github.com/tmux-plugins/tpm ~/.
 
 Manual install/update from tmux is still available via TPM keybindings.
 
-## Daily Workflow
+### Daily Workflow
 
-### Change one config repo
+#### Change one config repo
 
 Example: tmux changes.
 
@@ -82,7 +85,7 @@ git commit -m "Update tmux config"
 git push
 ```
 
-### Update parent pointer after child repo commit
+#### Update parent pointer after child repo commit
 
 ```bash
 cd ~/dotfiles
@@ -93,7 +96,7 @@ git push
 
 Repeat the same pattern for `nvim` and `zsh`.
 
-## How to Read Git Status Correctly
+### How to Read Git Status Correctly
 
 From `~/dotfiles`:
 
@@ -105,7 +108,7 @@ From `~/dotfiles/tmux` (or `nvim`, `zsh`):
 
 - You see normal file-level git status and diffs.
 
-## Syncing and Updating
+### Syncing and Updating
 
 To pull latest parent + submodule pointers:
 
@@ -125,9 +128,9 @@ git commit -m "Bump submodules"
 git push
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-### `fatal: could not create leading directories ... ~/.tmux/plugins/tpm`
+#### `fatal: could not create leading directories ... ~/.tmux/plugins/tpm`
 
 Cause: parent directory missing or old broken symlink at `~/.tmux/plugins`.
 
@@ -139,7 +142,7 @@ mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-### Submodule looks dirty in parent repo
+#### Submodule looks dirty in parent repo
 
 Check inside the submodule:
 
@@ -155,13 +158,13 @@ git add tmux
 git commit -m "Bump tmux submodule"
 ```
 
-### Fresh clone missing submodule content
+#### Fresh clone missing submodule content
 
 ```bash
 git submodule update --init --recursive
 ```
 
-## Optional Quality-of-Life Aliases
+### Optional Quality-of-Life Aliases
 
 ```bash
 alias df='cd ~/dotfiles'
@@ -170,14 +173,14 @@ alias dft='cd ~/dotfiles/tmux'
 alias dfz='cd ~/dotfiles/zsh'
 ```
 
-## Safety Rules
+### Safety Rules
 
 - Make config edits in child repos, not by bypassing submodule git history.
 - Do not commit secrets in any repo.
 - Avoid force-push on shared branches unless you explicitly mean to rewrite history.
 - Prefer small, focused commits in each child repo.
 
-## Quick Command Reference
+### Quick Command Reference
 
 ```bash
 # parent status + submodule summary
