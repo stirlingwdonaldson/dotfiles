@@ -39,6 +39,7 @@ Use symlinks:
 ```bash
 # zsh
 ln -sfn ~/dotfiles/zsh/.zshrc ~/.zshrc
+ln -sfn ~/dotfiles/zsh/.zshenv ~/.zshenv
 
 # tmux (choose one style and stay consistent)
 ln -sfn ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
@@ -52,8 +53,8 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 
 The Neovim link assumes `~/.config/nvim` does not exist. Move an existing
 configuration to a backup first; never replace it without checking its contents.
-The zsh link similarly assumes `~/.zshrc` does not already contain settings you
-need. Install zsh, Oh My Zsh and the optional shell plugins on each machine;
+The zsh links similarly assume `~/.zshrc` and `~/.zshenv` do not already contain
+settings you need. Install zsh, Oh My Zsh and the optional shell plugins on each machine;
 see `zsh/README.md`. Put machine-specific shell settings in `~/.zshrc.local`.
 To make zsh the login shell on Linux after testing it, run `chsh -s "$(command -v zsh)"`.
 The Mac and VM use the same Neovim repository. Each machine keeps its own
