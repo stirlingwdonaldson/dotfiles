@@ -45,10 +45,27 @@ ln -sfn ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 mkdir -p ~/.config/tmux
 ln -sfn ~/dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
-# nvim
-mkdir -p ~/.config/nvim
-ln -sfn ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+# nvim: link the whole directory so lua/, ftplugin/, and scripts/ are available
+mkdir -p ~/.config
+ln -s ~/dotfiles/nvim ~/.config/nvim
 ```
+
+The Neovim link assumes `~/.config/nvim` does not exist. Move an existing
+configuration to a backup first; never replace it without checking its contents.
+The Mac and VM use the same Neovim repository. Each machine keeps its own
+plugins, language servers, caches and state in Neovim's normal data directories.
+Changes in a submodule must be committed and pushed from that submodule, then
+its new commit recorded in this parent repository before another machine can
+pull them. GitHub SSH access must be configured on each machine.
+
+Telescope's optional native fzf sorter needs a C compiler and `make` on each
+machine. Build it after plugin installation with:
+
+```bash
+make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
+```
+
+Telescope falls back to its built-in sorter if the native extension is missing.
 
 ### tmux Plugins (TPM)
 
