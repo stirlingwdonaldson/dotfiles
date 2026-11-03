@@ -12,6 +12,7 @@ It is intentionally small and uses submodules for each config domain.
 - `nvim/`: Neovim config repo (`git@github.com:stirlingwdonaldson/nvim.git`).
 - `tmux/`: tmux config repo (`git@github.com:stirlingwdonaldson/tmux.git`).
 - `zsh/`: zsh config repo (`git@github.com:stirlingwdonaldson/zsh.git`).
+- `pi/`: Pi config repo (`git@github.com:stirlingwdonaldson/pi-config.git`).
 
 Each child directory is a git submodule, not a normal folder.
 
@@ -49,6 +50,9 @@ ln -sfn ~/dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
 # nvim: link the whole directory so lua/, ftplugin/, and scripts/ are available
 mkdir -p ~/.config
 ln -s ~/dotfiles/nvim ~/.config/nvim
+
+# pi: installs shared prompts and a machine-local settings file
+~/dotfiles/pi/install.sh
 ```
 
 The Neovim link assumes `~/.config/nvim` does not exist. Move an existing
@@ -71,6 +75,18 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 ```
 
 Telescope falls back to its built-in sorter if the native extension is missing.
+
+Install Pi with Node.js 22.19 or newer:
+
+```bash
+npm install -g --prefix "$HOME/.local" --ignore-scripts @earendil-works/pi-coding-agent@1.5.0
+```
+
+Run `pi` and use `/login openai` on each machine; credentials and session
+transcripts stay in `~/.pi/agent`, outside this repository. The separate
+`pi-harness` repository contains the TypeScript application built on Pi's SDK.
+The Pi settings template is copied on first setup because Pi updates local
+settings during normal use; see `pi/README.md` before making shared changes.
 
 ### tmux Plugins (TPM)
 
