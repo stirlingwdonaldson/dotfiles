@@ -67,15 +67,6 @@ Changes in a submodule must be committed and pushed from that submodule, then
 its new commit recorded in this parent repository before another machine can
 pull them. GitHub SSH access must be configured on each machine.
 
-Telescope's optional native fzf sorter needs a C compiler and `make` on each
-machine. Build it after plugin installation with:
-
-```bash
-make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
-```
-
-Telescope falls back to its built-in sorter if the native extension is missing.
-
 Install Pi with Node.js 22.19 or newer:
 
 ```bash
